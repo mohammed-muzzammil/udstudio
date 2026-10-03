@@ -96,7 +96,7 @@ The site is published with GitHub Pages from the public repo **mohammed-muzzammi
 
 **https://mohammed-muzzammil.github.io/udstudio/**
 
-To update it, commit and push to `main`. It goes live in about a minute:
+To update it, commit and push to `main`. It goes live in about a minute. When you change CSS or JS, bump the `?v=` number on the `css/` and `js/` links in every `.html` file, so phones fetch the new files instead of a cached copy:
 
 ```bash
 cd ~/Documents/udstudio-website && git add -A && git commit -m "Update content" && git push
