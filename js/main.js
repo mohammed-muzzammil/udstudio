@@ -240,28 +240,56 @@
     setTimeout(() => { if (!finished) { tl.progress(1); } }, 9000);
   }
 
-  /* ───────────── Hero: a room at dusk, then the lights switch on ───────────── */
+  /* ───────────── Hero: night view ⟷ day view, switched by a light switch ───────────── */
   function initLightsHero() {
     const hero = $(".hero"), room = $("#room");
     if (!hero || !room) return;
     const H = S.hero || {};
-    const img = $(".room__img", room);
-    img.src = H.image || S.images.sketch;
-    $(".room__lights", room).innerHTML = (H.lights || []).map(l =>
+    const src = H.image || S.images.sketch;
+    const scene = $(".room__scene", room), img = $(".room__img", room), linesImg = $(".room__lines", room);
+    img.src = src;
+    const lights = H.lights || [];
+    const main = lights.find(l => !l.soft) || { x: 50, y: 35 };
+    room.style.setProperty("--lx", main.x + "%");
+    room.style.setProperty("--ly", main.y + "%");
+    $(".room__lights", room).innerHTML = lights.map(l =>
       `<i class="${l.soft ? "is-soft" : ""}" style="left:${l.x}%;top:${l.y}%;--s:${l.size || 30}"></i>`).join("");
-    const sw = $(".switch", hero);
+
+    // night view: the same photo redrawn as glowing gold lines (canvas where supported)
+    const cv = document.createElement("canvas"), ctx = cv.getContext("2d");
+    if (ctx && "filter" in ctx) {
+      const paint = () => {
+        const r = scene.getBoundingClientRect();
+        if (!r.width || !img.naturalWidth) return;
+        const dpr = Math.min(devicePixelRatio || 1, 2);
+        cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
+        const k = Math.max(cv.width / img.naturalWidth, cv.height / img.naturalHeight);
+        const w = img.naturalWidth * k, h = img.naturalHeight * k;
+        ctx.filter = "url(#nightlines)";
+        ctx.drawImage(img, (cv.width - w) / 2, (cv.height - h) / 2, w, h);
+      };
+      cv.className = "room__lines"; cv.setAttribute("aria-hidden", "true");
+      const go = () => { linesImg.replaceWith(cv); paint(); };
+      if (img.complete && img.naturalWidth) go(); else img.addEventListener("load", go, { once: true });
+      let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(paint, 200); });
+    } else linesImg.src = src;
+
+    const sw = $(".switch", hero), hint = $(".switch__hint", hero);
     let timer;
     const set = (on, flicker = true) => {
       hero.classList.toggle("is-on", on);
       sw.setAttribute("aria-pressed", on);
-      sw.setAttribute("aria-label", on ? "Turn the lights off" : "Turn the lights on");
+      sw.setAttribute("aria-label", on ? "Switch to the night view" : "Switch to the day view");
+      hint.textContent = on ? "Tap for night view" : "Tap for day view";
       hero.classList.remove("is-flicker");
       if (on && flicker && !reduce) {
         void hero.offsetWidth; hero.classList.add("is-flicker");
-        clearTimeout(timer); timer = setTimeout(() => hero.classList.remove("is-flicker"), 1500);
+        clearTimeout(timer); timer = setTimeout(() => hero.classList.remove("is-flicker"), 1600);
       }
     };
-    sw.addEventListener("click", () => { hero.classList.add("is-touched"); set(!hero.classList.contains("is-on")); });
+    const toggle = () => { hero.classList.add("is-touched"); set(!hero.classList.contains("is-on")); };
+    sw.addEventListener("click", toggle);
+    $(".room__mode", room).addEventListener("click", toggle);
     if (!anim) { set(true, false); return; }
 
     initLightsHero.play = () => {
@@ -273,14 +301,15 @@
         .to(".hero__title .script", { clipPath: "inset(-20% 0% -40% 0%)", duration: 1.4, ease: "power2.inOut" }, "-=.7")
         .to(".hero__eyebrow, .hero .reveal", { opacity: 1, y: 0, duration: 1.1, stagger: .08 }, .3)
         .from(room, { clipPath: "inset(100% 0% 0% 0% round 300px 300px 6px 6px)", duration: 1.6, ease: "expo.inOut" }, .1)
-        .from(img, { scale: 1.25, duration: 2.6 }, .1)
+        .from(scene, { scale: 1.2, duration: 2.6 }, .1)
         .to(outline, { strokeDashoffset: 0, duration: 2.2, ease: "power2.inOut" }, .3)
-        .from(sw, { scale: 0, rotate: -30, duration: .9, ease: "back.out(2)" }, 1.3)
-        .add(() => sw.classList.add("is-press"), 2.0)
-        .add(() => { sw.classList.remove("is-press"); set(true); }, 2.15);
+        .from(".room__mode", { opacity: 0, y: -10, duration: .8 }, 1.2)
+        .from(sw, { scale: 0, rotate: -30, duration: .9, ease: "back.out(2)" }, 1.4)
+        .add(() => sw.classList.add("is-press"), 2.6)
+        .add(() => { sw.classList.remove("is-press"); set(true); }, 2.75);
     };
     G.set(".hero__eyebrow", { opacity: 0, y: 20 });
-    G.to(img, { yPercent: 7, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
+    G.to(scene, { yPercent: 6, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
   }
 
   /* ───────────── Sketch ⟷ finished room slider ───────────── */
@@ -967,15 +996,6 @@
     onScroll();
   }
 
-  /* ───────────── Preview tag ───────────── */
-  function initPreviewTag() {
-    if (!S.preview) return;
-    const t = document.createElement("div");
-    t.className = "preview-tag";
-    t.textContent = "Design preview · sample photos";
-    document.body.appendChild(t);
-  }
-
   /* ───────────── Boot ───────────── */
   buildHeader();
   buildFooter();
@@ -994,7 +1014,6 @@
   initContact();
   initPendant();
   initMobileBar();
-  initPreviewTag();
   initWhatsApp();
   initVideo();
   initWorkPage();

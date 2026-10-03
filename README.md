@@ -32,7 +32,7 @@ Open http://localhost:8766. The logo intro plays once per browser tab. Open a ne
 - **Written for clients:** plain words, lots of photos, and a quick way to call, WhatsApp or ask for a quote on every screen.
 - **Animations, all about light and rooms:**
   - *Intro:* the logo is drawn line by line and "Studio" is written in, then two sliding doors open onto the site.
-  - *Hero:* a room shown at dusk. A light switch flicks and the lamps flicker on. Visitors can tap the switch to turn the lights off and on.
+  - *Hero:* the room first appears as a night view, drawn in glowing gold lines. A light switch flicks, the lamp sparks and light spreads out from it to reveal the finished room (the day view). Visitors tap the switch, or the Night/Day pill, to go back and forth.
   - *Our work:* linen curtains draw open onto each featured home. Swipe the photo or tap the tabs to move between rooms.
   - *Rooms we've designed:* a gallery of sample work, filtered by room. Each photo appears with a sweep of light, and tapping one opens a full-screen viewer you can swipe through.
   - *See it before it's built:* drag a slider to turn a pencil sketch into the finished room.
@@ -104,11 +104,10 @@ cd ~/Documents/udstudio-website && git add -A && git commit -m "Update content" 
 
 ### Preview mode (switch off at launch)
 
-While the site has sample photos and placeholder details, three things keep it marked as a preview:
+While the site has sample photos and placeholder details, it's kept out of Google (the link still works for anyone you share it with). At launch:
 
-1. `preview: true` in `js/config.js` shows the "Design preview · sample photos" tag. Set it to `false`.
-2. Each page has `<meta name="robots" content="noindex, nofollow">` so Google doesn't list it. Delete that line from every `.html` file.
-3. `robots.txt` blocks search engines. Change `Disallow: /` to `Allow: /`.
+1. Each page has `<meta name="robots" content="noindex, nofollow">`. Delete that line from every `.html` file.
+2. `robots.txt` blocks search engines. Change `Disallow: /` to `Allow: /`.
 
 ## A nicer address, still free
 

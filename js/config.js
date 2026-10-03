@@ -10,10 +10,6 @@ const U = (id, w = 1600) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 window.SITE = {
-  // Shows a small "Design preview" tag while the site has sample photos and
-  // placeholder details. Set to false at launch.
-  preview: true,
-
   name: "UD Studio",
   fullName: "Umme's Design Studio",
 
@@ -116,12 +112,13 @@ window.SITE = {
   // ── Hero: the room starts at dusk and its lights switch on ──
   // Use a photo with lamps you can see. Each light is a position on the photo,
   // in % from the left and top, with a glow size in % of the photo's width.
+  // The first light is where the light spreads from when the switch is tapped.
   hero: {
     image: U("photo-1682184805271-11671b7ecf4c", 1600),
     lights: [
-      { x: 34, y: 31, size: 34 },
-      { x: 53, y: 33, size: 34 },
-      { x: 50, y: 22, size: 60, soft: true }
+      { x: 34, y: 33, size: 34 },
+      { x: 53, y: 35, size: 34 },
+      { x: 50, y: 25, size: 60, soft: true }
     ]
   },
 

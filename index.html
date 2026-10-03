@@ -62,10 +62,20 @@
 
       <figure class="hero__media">
         <div class="room" id="room">
-          <img class="room__img" data-img="hero" alt="A living room designed by UD Studio" fetchpriority="high">
-          <div class="room__night"></div>
-          <div class="room__warm"></div>
-          <div class="room__lights"></div>
+          <div class="room__scene">
+            <img class="room__lines" alt="" aria-hidden="true">
+            <div class="room__day">
+              <img class="room__img" alt="A living room designed by UD Studio" fetchpriority="high">
+              <div class="room__warm"></div>
+              <div class="room__lights"></div>
+            </div>
+            <span class="room__spark" aria-hidden="true"></span>
+          </div>
+          <button class="room__mode" type="button" tabindex="-1" aria-hidden="true">
+            <span><svg viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>Night</span>
+            <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Day</span>
+            <i></i>
+          </button>
         </div>
         <svg class="arch-outline" viewBox="0 0 400 560" preserveAspectRatio="none" aria-hidden="true"><path d="M2 558 V200 A198 198 0 0 1 398 200 V558" /></svg>
         <button class="switch" type="button" aria-pressed="false" aria-label="Turn the lights on">
@@ -238,6 +248,17 @@
 
   <!-- Sketch filter: turns any photo into a pencil drawing in the studio's brown -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <!-- Night view: the room as glowing gold lines -->
+    <filter id="nightlines" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
+      <feColorMatrix type="matrix" values=".33 .33 .33 0 0  .33 .33 .33 0 0  .33 .33 .33 0 0  0 0 0 1 0" result="g"/>
+      <feGaussianBlur in="g" stdDeviation="3" result="b"/>
+      <feComponentTransfer in="b" result="ib"><feFuncR type="table" tableValues="1 0"/><feFuncG type="table" tableValues="1 0"/><feFuncB type="table" tableValues="1 0"/></feComponentTransfer>
+      <feBlend in="ib" in2="g" mode="color-dodge" result="d"/>
+      <feComponentTransfer in="d" result="n"><feFuncR type="linear" slope="-4" intercept="3.9"/><feFuncG type="linear" slope="-4" intercept="3.9"/><feFuncB type="linear" slope="-4" intercept="3.9"/></feComponentTransfer>
+      <feColorMatrix in="n" type="matrix" values=".95 0 0 0 .025  .78 0 0 0 .02  .5 0 0 0 .016  0 0 0 0 1" result="t"/>
+      <feGaussianBlur in="t" stdDeviation="2.4" result="glow"/>
+      <feBlend in="t" in2="glow" mode="screen"/>
+    </filter>
     <filter id="sketch" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
       <feColorMatrix type="matrix" values=".33 .33 .33 0 0  .33 .33 .33 0 0  .33 .33 .33 0 0  0 0 0 1 0" result="g"/>
       <feGaussianBlur in="g" stdDeviation="4" result="b"/>
