@@ -90,6 +90,39 @@ The green button opens a small chat panel. Visitors type a message (or tap a sug
 - [ ] FAQ answers marked TODO in `contact.html` (first consultation, typical timelines, cities)
 - [ ] Floor-plan dimensions (11.2 m × 7.6 m) are illustrative; fine to keep or change in `planSVG` in `js/main.js`
 
+## Live preview
+
+The site is published with GitHub Pages from the public repo **mohammed-muzzammil/udstudio**:
+
+**https://mohammed-muzzammil.github.io/udstudio/**
+
+To update it, commit and push to `main`. It goes live in about a minute:
+
+```bash
+cd ~/Documents/udstudio-website && git add -A && git commit -m "Update content" && git push
+```
+
+### Preview mode (switch off at launch)
+
+While the site has sample photos and placeholder details, three things keep it marked as a preview:
+
+1. `preview: true` in `js/config.js` shows the "Design preview · sample photos" tag. Set it to `false`.
+2. Each page has `<meta name="robots" content="noindex, nofollow">` so Google doesn't list it. Delete that line from every `.html` file.
+3. `robots.txt` blocks search engines. Change `Disallow: /` to `Allow: /`.
+
+## A nicer address, still free
+
+| Option | Address | How |
+|---|---|---|
+| GitHub Pages (now) | `mohammed-muzzammil.github.io/udstudio` | Already set up |
+| GitHub organisation | `udstudio.github.io` | Create a free organisation named `udstudio` on GitHub, then move this repo into it and rename the repo to `udstudio.github.io` |
+| Cloudflare Pages | `udstudio.pages.dev` | Free Cloudflare account → Workers & Pages → Create → Pages → connect this GitHub repo. No build command, output folder `/` |
+| Netlify / Vercel | `udstudio.netlify.app` / `udstudio.vercel.app` | Sign in with GitHub → import this repo → choose the site name |
+
+For a business, a real domain (for example `udstudio.in`, about ₹500–900 a year) looks most trustworthy and gives you `hello@udstudio.in` style email. It should be bought in the studio's name. Any of the options above can point to it later.
+
+If you change the address, update the `og:image` URLs at the top of each page so link previews keep working.
+
 ## Free hosting
 
 The steps are the same as for the Bombay Soda site: GitHub Pages plus the studio's domain.

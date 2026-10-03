@@ -447,7 +447,11 @@ html.no-anim .g-item { opacity: 1; transform: none; }
 
 /* ── Preview tag (config: preview) ─────────────────────── */
 .preview-tag { position: fixed; left: 16px; bottom: 16px; z-index: 840; font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: var(--espresso); background: rgba(232, 207, 154, .92); padding: 7px 12px; border-radius: 99px; pointer-events: none; box-shadow: 0 6px 18px rgba(61, 17, 8, .15); }
-@media (max-width: 760px) { .preview-tag { left: 50%; transform: translateX(-50%); bottom: auto; top: calc(var(--header-h) + 4px); font-size: .58rem; } }
+.preview-tag { white-space: nowrap; transition: bottom .6s var(--ease); }
+@media (max-width: 760px) {
+  .preview-tag { left: 50%; transform: translateX(-50%); bottom: calc(14px + env(safe-area-inset-bottom)); font-size: .58rem; }
+  .mbar.is-on ~ .preview-tag { bottom: calc(76px + env(safe-area-inset-bottom)); }
+}
 
 /* ── Mobile quick-contact bar ───────────────────────────── */
 .mbar { display: none; }
