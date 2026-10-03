@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en" data-intro>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UD Studio · Interior Design for Homes, Offices & More</title>
+  <meta name="description" content="UD Studio (Umme's Design Studio) designs and builds calm, considered interiors. Full home interiors, modular kitchens, wardrobes, renovation, offices and turnkey execution.">
+  <meta name="robots" content="noindex, nofollow"> <!-- PREVIEW: remove this line at launch -->
+  <meta name="theme-color" content="#FBF7F3">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="UD Studio · Interiors that feel like home">
+  <meta property="og:description" content="Interior design for homes first, and offices and commercial spaces too. From the first sketch to the last cushion.">
+  <meta property="og:image" content="https://mohammed-muzzammil.github.io/udstudio/assets/og.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Manrope:wght@300..700&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>(function(){var d=document.documentElement;try{var s=sessionStorage;if(s.getItem('ud-nav')){d.classList.add('arriving');s.removeItem('ud-nav')}if(d.hasAttribute('data-intro')&&!s.getItem('ud-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('intro')}catch(e){}})()</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    "name": "UD Studio — Umme's Design Studio",
+    "description": "Interior design studio for homes, offices and commercial spaces.",
+    "image": "assets/og.png",
+    "areaServed": "India"
+  }
+  </script>
+</head>
+<body data-page="home">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Intro: the logo is drawn, signed, then the doors slide open -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__door loader__door--l"></div>
+    <div class="loader__door loader__door--r"></div>
+    <div class="loader__mark">
+      <div class="loader__logo" id="loader-logo"></div>
+      <p class="loader__caption">Umme's Design Studio</p>
+    </div>
+  </div>
+
+  <div class="curtain" aria-hidden="true"><div class="curtain__mark"></div></div>
+
+  <header class="site-header" id="site-header"></header>
+
+  <main id="main">
+    <!-- HERO ─ a room at dusk; the lights switch on -->
+    <section class="hero" id="top">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="hero__head">
+        <p class="eyebrow hero__eyebrow"><span>Interior designers · <span data-city></span></span></p>
+        <h1 class="hero__title">
+          <span class="line"><span class="line__in">Interiors that</span></span>
+          <span class="line"><span class="line__in"><em>feel</em> like</span></span>
+          <span class="line line--script"><span class="line__in script shimmer">home.</span></span>
+        </h1>
+      </div>
+
+      <figure class="hero__media">
+        <div class="room" id="room">
+          <img class="room__img" data-img="hero" alt="A living room designed by UD Studio" fetchpriority="high">
+          <div class="room__night"></div>
+          <div class="room__warm"></div>
+          <div class="room__lights"></div>
+        </div>
+        <svg class="arch-outline" viewBox="0 0 400 560" preserveAspectRatio="none" aria-hidden="true"><path d="M2 558 V200 A198 198 0 0 1 398 200 V558" /></svg>
+        <button class="switch" type="button" aria-pressed="false" aria-label="Turn the lights on">
+          <span class="switch__plate"><span class="switch__rocker"><i></i></span></span>
+          <span class="switch__hint">Tap the switch</span>
+        </button>
+      </figure>
+
+      <div class="hero__rest">
+        <p class="hero__lede reveal">We design and build beautiful homes, kitchens, wardrobes and offices. One team looks after everything, from the first idea to the day you move in.</p>
+        <div class="hero__ctas reveal">
+          <a class="btn btn--dark" href="#contact" data-magnetic><span>Book a consultation</span><i class="btn__arrow"></i></a>
+          <a class="btn btn--line" href="#work"><span>See our work</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service marquee -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Living rooms</span><i></i><span>Bedrooms</span><i></i><span>Modular kitchens</span><i></i><span>Wardrobes</span><i></i><span>TV units</span><i></i><span>Renovations</span><i></i><span>Offices</span><i></i><span>Turnkey projects</span><i></i>
+      </div>
+    </div>
+
+    <!-- Featured work -->
+    <section class="work" id="work">
+      <header class="section-head">
+        <p class="eyebrow">Our work</p>
+        <h2 class="h2 split">Two homes we're <em>proud</em> of</h2>
+        <a class="link-arrow" href="work.html">All projects</a>
+      </header>
+      <div class="work__list" id="featured"></div>
+    </section>
+
+    <!-- Gallery: sample work by room -->
+    <section class="gallery" id="gallery-section">
+      <header class="section-head">
+        <p class="eyebrow">Sample work</p>
+        <h2 class="h2 split">Rooms we've <em>designed</em></h2>
+        <p class="section-head__note reveal">Tap any photo to see it full screen.</p>
+      </header>
+      <div class="chips-row" id="gallery-chips" role="tablist" aria-label="Filter by room"></div>
+      <div class="gallery__grid" id="gallery"></div>
+      <div class="gallery__more"><button class="btn btn--line" id="gallery-more" type="button"><span>Show more rooms</span></button></div>
+    </section>
+
+    <!-- Approach -->
+    <section class="statement" id="intro">
+      <p class="eyebrow">Our approach</p>
+      <p class="statement__text" data-words>
+        Every family lives differently, so we design around yours.
+        <span class="pill" data-pill="0"></span> Where the morning light falls,
+        <span class="pill" data-pill="1"></span> where everyone gathers, and where
+        everything gets put away <span class="pill" data-pill="2"></span>
+      </p>
+      <div class="statement__foot reveal">
+        <p>One design team stays with your home from the first visit to handover. You always know who to call, what happens next and where the budget stands.</p>
+        <a class="link-arrow" href="studio.html">About the studio</a>
+      </div>
+    </section>
+
+    <!-- Sketch to reality -->
+    <section class="idea">
+      <div class="idea__copy">
+        <p class="eyebrow">Idea to reality</p>
+        <h2 class="h2 split">See your home <em>before</em> it's built</h2>
+        <p class="reveal">Before work starts, we show you drawings and 3D views of every room, so you know exactly how it will look. Drag the slider to watch a sketch become a finished room.</p>
+      </div>
+      <div class="idea__media">
+        <div class="ba" data-compare data-cursor="Drag">
+          <img class="ba__photo" alt="A finished room designed by UD Studio" data-img="sketch" loading="lazy">
+          <div class="ba__sketch-wrap"><div class="ba__draw"><img class="ba__sketch" alt="" aria-hidden="true" data-img="sketch" loading="lazy"></div></div>
+          <div class="ba__handle" role="slider" tabindex="0" aria-label="Compare the design sketch with the finished room" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+            <span class="ba__knob"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+          </div>
+          <span class="ba__tag ba__tag--l">Design</span>
+          <span class="ba__tag ba__tag--r">Finished</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services: picture lights switch on over each card -->
+    <section class="services" id="services">
+      <header class="section-head">
+        <p class="eyebrow">What we do</p>
+        <h2 class="h2 split">Everything your home <em>needs</em>, under one roof</h2>
+      </header>
+      <div class="svc-row" id="svc">
+        <article class="svc-card is-core" data-img="homes"><div class="svc-card__media"><img alt="" loading="lazy"><span class="svc-card__lamp"></span><span class="svc-card__beam"></span></div><span class="svc-card__no">01</span><h3>Full home interiors</h3><p>Every room of your apartment, villa or bungalow, designed to work together.</p></article>
+        <article class="svc-card" data-img="kitchens"><div class="svc-card__media"><img alt="" loading="lazy"><span class="svc-card__lamp"></span><span class="svc-card__beam"></span></div><span class="svc-card__no">02</span><h3>Modular kitchens</h3><p>Smart storage and easy-clean finishes, made for everyday Indian cooking.</p></article>
+        <article class="svc-card" data-img="wardrobes"><div class="svc-card__media"><img alt="" loading="lazy"><span class="svc-card__lamp"></span><span class="svc-card__beam"></span></div><span class="svc-card__no">03</span><h3>Wardrobes & storage</h3><p>Wardrobes, TV units, crockery units and study tables, made to measure.</p></article>
+        <article class="svc-card" data-img="renovation"><div class="svc-card__media"><img alt="" loading="lazy"><span class="svc-card__lamp"></span><span class="svc-card__beam"></span></div><span class="svc-card__no">04</span><h3>Renovation</h3><p>A fresh start for an older home, keeping the parts you love.</p></article>
+        <article class="svc-card" data-img="office"><div class="svc-card__media"><img alt="" loading="lazy"><span class="svc-card__lamp"></span><span class="svc-card__beam"></span></div><span class="svc-card__no">05</span><h3>Offices & shops</h3><p>Workspaces, clinics and showrooms that impress the people who visit.</p></article>
+        <article class="svc-card" data-img="styling"><div class="svc-card__media"><img alt="" loading="lazy"><span class="svc-card__lamp"></span><span class="svc-card__beam"></span></div><span class="svc-card__no">06</span><h3>Decor & styling</h3><p>Curtains, rugs, lights and art that make a house feel finished.</p></article>
+        <article class="svc-card" data-img="turnkey"><div class="svc-card__media"><img alt="" loading="lazy"><span class="svc-card__lamp"></span><span class="svc-card__beam"></span></div><span class="svc-card__no">07</span><h3>Turnkey projects</h3><p>We handle design, materials and site work. You get the keys.</p></article>
+      </div>
+      <p class="svc-swipe" aria-hidden="true">Swipe to see more →</p>
+    </section>
+
+    <!-- Process: a floor plan that builds itself as you scroll -->
+    <section class="process" id="process">
+      <div class="process__pin">
+        <div class="process__copy">
+          <p class="eyebrow">How it works</p>
+          <h2 class="h2">From empty flat<br>to <em>your home</em></h2>
+          <ol class="steps" id="steps">
+            <li class="is-active"><span class="steps__no">01</span><div><h3>We visit & listen</h3><p>We come to your site, hear how your family lives and take every measurement.</p></div></li>
+            <li><span class="steps__no">02</span><div><h3>We plan the layout</h3><p>Where the sofa goes, how you walk through the home, where everything is stored.</p></div></li>
+            <li><span class="steps__no">03</span><div><h3>You choose the look</h3><p>Pick colours, floors and fabrics from real samples, with our help.</p></div></li>
+            <li><span class="steps__no">04</span><div><h3>We build it</h3><p>Our team does the work on site, with regular updates and quality checks.</p></div></li>
+            <li><span class="steps__no">05</span><div><h3>You move in</h3><p>We style every room, switch on the lights and hand you the keys.</p></div></li>
+          </ol>
+          <div class="process__bar"><i></i></div>
+        </div>
+        <div class="process__stage" aria-hidden="true">
+          <div class="plan" id="plan"></div>
+          <div class="plan__swatches"><i style="--c:#C9A27E"></i><i style="--c:#E9E3DA"></i><i style="--c:#C19A90"></i><i style="--c:#7D7F63"></i></div>
+          <p class="plan__welcome script shimmer">Welcome home</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Studio teaser -->
+    <section class="studio-teaser">
+      <figure class="studio-teaser__img arch-img"><img data-img="arch" alt="A sunlit room with an arched alcove" loading="lazy"></figure>
+      <div class="studio-teaser__copy">
+        <p class="eyebrow">The studio</p>
+        <h2 class="h2 split">A small studio that gives <em>every</em> home its full attention</h2>
+        <p class="reveal">UD Studio is led by <span data-founder></span>. We take on a few homes at a time, so the people who design your home are the ones who see it through to handover.</p>
+        <div class="signature" aria-hidden="true"></div>
+        <a class="link-arrow reveal" href="studio.html">Meet the studio</a>
+      </div>
+      <ul class="stats" id="stats"></ul>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="words" id="words">
+      <p class="eyebrow">Happy homes</p>
+      <div class="words__stage" id="words-stage"></div>
+      <div class="words__dots" id="words-dots"></div>
+    </section>
+
+    <!-- Contact: a pendant lamp drops in and lights the way -->
+    <section class="contact contact--lamp" id="contact">
+      <button class="pendant" type="button" aria-label="Switch the lamp on or off">
+        <span class="pendant__sway"><span class="pendant__cord"></span><svg class="pendant__shade" viewBox="0 0 120 64" aria-hidden="true"><defs><linearGradient id="shadeG" x1="0" x2="1"><stop offset="0" stop-color="#8E6B3D"/><stop offset=".45" stop-color="#E8CF9A"/><stop offset=".7" stop-color="#B8904F"/><stop offset="1" stop-color="#7A5A31"/></linearGradient></defs><path d="M6 62C6 28 30 6 60 6s54 22 54 56z" fill="url(#shadeG)"/><rect x="54" y="0" width="12" height="8" rx="2" fill="#7A5A31"/></svg><span class="pendant__bulb"></span><span class="pendant__cone"></span></span>
+      </button>
+      <div class="contact__intro">
+        <p class="eyebrow">Start your project</p>
+        <h2 class="h2 split">Let's design <em>your</em> home</h2>
+        <p class="reveal">Tell us a little about your space. We'll call you back to set up a first meeting, at our studio or at your site.</p>
+        <ul class="contact__list reveal" data-contact-list></ul>
+      </div>
+      <div class="contact__form" data-enquiry-form></div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <!-- WhatsApp chat -->
+  <div class="wa" id="wa"></div>
+
+  <!-- Video modal -->
+  <div class="vmodal" id="vmodal" role="dialog" aria-modal="true" aria-label="Project walkthrough video" hidden>
+    <button class="vmodal__close" aria-label="Close video"><span></span></button>
+    <div class="vmodal__body"></div>
+  </div>
+
+  <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+
+  <!-- Sketch filter: turns any photo into a pencil drawing in the studio's brown -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="sketch" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
+      <feColorMatrix type="matrix" values=".33 .33 .33 0 0  .33 .33 .33 0 0  .33 .33 .33 0 0  0 0 0 1 0" result="g"/>
+      <feGaussianBlur in="g" stdDeviation="4" result="b"/>
+      <feComponentTransfer in="b" result="ib"><feFuncR type="table" tableValues="1 0"/><feFuncG type="table" tableValues="1 0"/><feFuncB type="table" tableValues="1 0"/></feComponentTransfer>
+      <feBlend in="ib" in2="g" mode="color-dodge" result="d"/>
+      <feComponentTransfer in="d" result="c"><feFuncR type="gamma" exponent="2.6"/><feFuncG type="gamma" exponent="2.6"/><feFuncB type="gamma" exponent="2.6"/></feComponentTransfer>
+      <feColorMatrix in="c" type="matrix" values=".745 0 0 0 .239  .902 0 0 0 .067  .922 0 0 0 .031  0 0 0 1 0"/>
+    </filter>
+  </svg>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/logo.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact · UD Studio</title>
+  <meta name="description" content="Get in touch with UD Studio about your home, kitchen, office or commercial space. Call, WhatsApp, email or send an enquiry.">
+  <meta name="robots" content="noindex, nofollow"> <!-- PREVIEW: remove this line at launch -->
+  <meta name="theme-color" content="#FBF7F3">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contact · UD Studio">
+  <meta property="og:description" content="Interior design for homes first, and offices and commercial spaces too. From the first sketch to the last cushion.">
+  <meta property="og:image" content="https://mohammed-muzzammil.github.io/udstudio/assets/og.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Manrope:wght@300..700&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>(function(){var d=document.documentElement;try{var s=sessionStorage;if(s.getItem('ud-nav')){d.classList.add('arriving');s.removeItem('ud-nav')}if(d.hasAttribute('data-intro')&&!s.getItem('ud-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('intro')}catch(e){}})()</script>
+</head>
+<body data-page="contact">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="curtain" aria-hidden="true"><div class="curtain__mark"></div></div>
+  <header class="site-header" id="site-header"></header>
+
+  <main id="main">
+    <section class="page-hero" style="padding-bottom:0">
+      <p class="eyebrow">Contact</p>
+      <h1 class="split">Let's talk about <em>your space</em></h1>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="contact__intro">
+        <p class="reveal">Send us a few details and we'll get back to you to set up a first conversation. If you'd rather talk now, call or message us on WhatsApp.</p>
+        <ul class="contact__list reveal" data-contact-list></ul>
+        <figure class="arch-img" style="margin-top:44px;max-width:360px"><img data-img="contact" alt="A calm, light-filled room" loading="lazy"></figure>
+      </div>
+      <div class="contact__form" data-enquiry-form></div>
+    </section>
+
+    <section class="faq">
+      <p class="eyebrow">Good to know</p>
+      <h2 class="h2 split">Questions we're <em>often</em> asked</h2>
+      <details><summary>What happens at the first consultation?</summary><p>We talk through how you live, what you want to change and the budget range you have in mind. It can happen at the studio or at your site. <!-- TODO: say whether the first consultation is free and how long it takes. --></p></details>
+      <details><summary>Do you only design, or do you also build?</summary><p>Both. We can hand over a complete set of drawings for your own contractor, or run the whole project as turnkey execution with our site team.</p></details>
+      <details><summary>Do you work on offices and commercial spaces?</summary><p>Yes. Homes are most of our work, and we also design offices, clinics, studios and retail spaces.</p></details>
+      <details><summary>Can you work with my budget?</summary><p>Tell us the range you have in mind. We plan the design around it and show you where it's worth spending more and where it's sensible to save.</p></details>
+      <details><summary>How long does a full home take?</summary><p>It depends on the size and scope of the home. We give you a schedule once the design is agreed. <!-- TODO: add the studio's typical timeline range. --></p></details>
+      <details><summary>Which cities do you work in?</summary><p><!-- TODO --> We're based in <span data-city></span>. Ask us about projects in other cities.</p></details>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+  <div class="wa" id="wa"></div>
+  <div class="vmodal" id="vmodal" role="dialog" aria-modal="true" aria-label="Project walkthrough video" hidden>
+    <button class="vmodal__close" aria-label="Close video"><span></span></button>
+    <div class="vmodal__body"></div>
+  </div>
+  <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/logo.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
