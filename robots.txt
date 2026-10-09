@@ -1,3 +1,2 @@
-# PREVIEW: replace with 'Allow: /' at launch
 User-agent: *
-Disallow: /
+Allow: /

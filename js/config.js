@@ -15,7 +15,7 @@ window.SITE = {
   phoneDisplay: "+91 93593 12288",
   phoneTel: "+919359312288",
   whatsapp: "919359312288",             // country code + number, digits only
-  email: "",                            // add an email to show it and to receive form enquiries by email
+  email: "aayeman02@gmail.com",
   hours: "",                            // e.g. "Mon – Sat · 10:00 am – 7:00 pm" (hidden while empty)
   city: "Nagpur",
   address: "Shantinagar, Nagpur, Maharashtra",
@@ -26,9 +26,9 @@ window.SITE = {
   linkedin: "",
 
   // ── Enquiry form ────────────────────────────────────────
-  // With no email set, the form opens WhatsApp with the enquiry filled in.
-  // To receive enquiries by email instead: add an email above, get a free access
-  // key at https://web3forms.com for that inbox, and paste it here.
+  // Without a key, the form opens WhatsApp with the enquiry filled in.
+  // To receive enquiries in the email inbox instead: get a free access key at
+  // https://web3forms.com using the email above, and paste it here.
   web3formsKey: "",
 
   // ── Studio numbers ──────────────────────────────────────
@@ -48,17 +48,15 @@ window.SITE = {
   },
 
   // ── Client words ────────────────────────────────────────
-  // DRAFTS: please show each family their quote and get a yes (or their own
-  // words) before setting approved: true. Unapproved quotes are never shown, and
-  // the section stays hidden until at least one is approved.
+  // Approved by each family (Oct 2026). Set approved: false to hide a quote.
   // showClientNames: false shows "Homeowners" instead of the family's name.
-  showClientNames: false,
+  showClientNames: true,
   testimonials: [
-    { approved: false, project: "khajur-residence", name: "Mr & Mrs Fazal",
+    { approved: true, project: "fazal-residence", name: "Mr & Mrs Fazal",
       quote: "Umme understood exactly how we wanted our home to feel. Every room is warm, practical and beautifully finished, and we still notice new details every day." },
-    { approved: false, project: "husaini-residence", name: "Mr & Mrs Kaludi",
+    { approved: true, project: "kaludi-residence", name: "Mr & Mrs Kaludi",
       quote: "From the first meeting to the final finishing, the process was smooth and stress-free. Our home looks better than we imagined." },
-    { approved: false, project: "engineer-residence", name: "Mr & Mrs Engineer",
+    { approved: true, project: "engineer-residence", name: "Mr & Mrs Engineer",
       quote: "The room turned out elegant and comfortable at the same time. Thank you, UD Studio, for the care you put into every detail." }
   ],
 
@@ -68,8 +66,8 @@ window.SITE = {
   // the gallery filter). Client names stay private unless showClientNames is true.
   projects: [
     {
-      slug: "khajur-residence",
-      name: "Khajur Residence",
+      slug: "fazal-residence",
+      name: "Mr & Mrs Fazal's Residence",
       client: "Mr & Mrs Fazal",
       kind: "Home",
       type: "Complete home",
@@ -81,7 +79,7 @@ window.SITE = {
       palette: ["#EEE7DE", "#A0522D", "#4B2A3A", "#1F3A56"],
       cover: K("living-1"),
       rooms: [
-        { name: "Living room",    category: "Living",            images: [K("living-1"), K("living-2"), K("living-3"), K("living-4")] },
+        { name: "Living room",    category: "Living",            images: [K("living-1"), K("living-2"), K("living-3"), K("living-4"), K("living-5"), K("living-6")] },
         { name: "Entrance",       category: "Entrance & details", images: [K("entrance-1")] },
         { name: "Kitchen",        category: "Kitchen",           images: [K("kitchen-1"), K("kitchen-2"), K("kitchen-3")] },
         { name: "Master bedroom", category: "Bedroom",           images: [K("master-1"), K("master-2"), K("master-3"), K("master-4"), K("master-5"), K("master-6"), K("master-7"), K("master-8"), K("master-9")] },
@@ -91,8 +89,8 @@ window.SITE = {
       video: { src: "assets/video/khajur-walkthrough.mp4", poster: "assets/video/khajur-walkthrough.jpg", vertical: true }
     },
     {
-      slug: "husaini-residence",
-      name: "Husaini Residence",
+      slug: "kaludi-residence",
+      name: "Mr & Mrs Kaludi's Residence",
       client: "Mr & Mrs Kaludi",
       kind: "Home",
       type: "Complete home",
@@ -115,7 +113,7 @@ window.SITE = {
     },
     {
       slug: "engineer-residence",
-      name: "Engineer Residence",
+      name: "Mr & Mrs Engineer's Residence",
       client: "Mr & Mrs Engineer",
       kind: "Bedroom",
       type: "Bedroom",

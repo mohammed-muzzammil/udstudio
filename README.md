@@ -79,11 +79,10 @@ The green button opens a small chat panel. Visitors type a message (or tap a sug
 
 ## Content status
 
-Real content from the studio is in: Khajur Residence (photos + walkthrough film), Husaini Residence (photos + walkthrough film), the Engineer Residence bedroom reel, contact details, Instagram and the founder bio.
+Real content from the studio is in: Mr & Mrs Fazal's Residence (all 34 photos + walkthrough film), Mr & Mrs Kaludi's Residence (all 9 photos + walkthrough film), Mr & Mrs Engineer's Residence bedroom reel, client reviews (approved by the families), contact details, email, Instagram and the founder bio.
 
 Still open:
-- [ ] **Client reviews** are drafts in `testimonials` in `js/config.js` and are **not shown** until each family approves their quote (set `approved: true`). Client names stay hidden while `showClientNames` is `false`.
-- [ ] **Email** for enquiries. With no email, the form sends the enquiry to WhatsApp. Add `email` (and optionally a Web3Forms key) to receive enquiries by email.
+- [ ] **Enquiries by email (optional):** the form sends enquiries to WhatsApp. To receive them at aayeman02@gmail.com instead, get a free key at web3forms.com with that email and paste it into `web3formsKey`.
 - [ ] Optional: project size and year (`area`, `year`), studio hours, a Google Maps link, real studio numbers (`stats`), a founder portrait.
 
 ### Photos and films
@@ -103,13 +102,6 @@ To update it, commit and push to `main`. It goes live in about a minute. When yo
 ```bash
 cd ~/Documents/udstudio-website && git add -A && git commit -m "Update content" && git push
 ```
-
-### Preview mode (switch off at launch)
-
-While the site has sample photos and placeholder details, it's kept out of Google (the link still works for anyone you share it with). At launch:
-
-1. Each page has `<meta name="robots" content="noindex, nofollow">`. Delete that line from every `.html` file.
-2. `robots.txt` blocks search engines. Change `Disallow: /` to `Allow: /`.
 
 ## A nicer address, still free
 

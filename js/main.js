@@ -27,7 +27,7 @@
     get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
     set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) { /* private mode */ } }
   };
-  const emailMode = !!(S.email || S.web3formsKey);
+  const emailMode = !!S.web3formsKey;
   const waLink = (text = "") => `https://wa.me/${S.whatsapp}${text ? "?text=" + encodeURIComponent(text) : ""}`;
 
   /* ───────────── Logo ───────────── */
@@ -756,7 +756,7 @@
     const stage = $("#words-stage"), dots = $("#words-dots");
     const T = (S.testimonials || []).filter(t => t.approved).map(t => {
       const p = S.projects.find(x => x.slug === t.project);
-      return { quote: t.quote, name: S.showClientNames ? t.name : "Homeowners", place: p ? `${p.name}, ${p.location}` : "" };
+      return { quote: t.quote, name: S.showClientNames ? t.name : "Homeowners", place: p ? [p.type, p.location].filter(Boolean).join(", ") : "" };
     });
     if (!stage || !T.length) { stage && stage.closest("section").remove(); return; }
     stage.innerHTML = T.map((t, i) => `<figure class="quote${i ? "" : " is-on"}"><span class="quote__mark" aria-hidden="true">“</span><blockquote>${esc(t.quote)}</blockquote><figcaption><cite>${esc(t.name)}<span>${esc(t.place)}</span></cite></figcaption></figure>`).join("");
