@@ -80,7 +80,7 @@ window.SITE = {
       cover: K("living-1"),
       rooms: [
         { name: "Living room",    category: "Living",            images: [K("living-1"), K("living-2"), K("living-3"), K("living-4"), K("living-5"), K("living-6")] },
-        { name: "Entrance",       category: "Entrance & details", images: [K("entrance-1")] },
+        { name: "Console & mirrors", category: "Entrance & details", images: [K("entrance-1")] },
         { name: "Kitchen",        category: "Kitchen",           images: [K("kitchen-1"), K("kitchen-2"), K("kitchen-3")] },
         { name: "Master bedroom", category: "Bedroom",           images: [K("master-1"), K("master-2"), K("master-3"), K("master-4"), K("master-5"), K("master-6"), K("master-7"), K("master-8"), K("master-9")] },
         { name: "Second bedroom", category: "Bedroom",           images: [K("bedroom2-1"), K("bedroom2-2"), K("bedroom2-5"), K("bedroom2-3"), K("bedroom2-4"), K("bedroom2-6"), K("bedroom2-7"), K("bedroom2-8"), K("bedroom2-9"), K("bedroom2-10"), K("bedroom2-11"), K("bedroom2-12"), K("bedroom2-13")] },
