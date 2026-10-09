@@ -77,18 +77,20 @@ Until a key is added, **Send enquiry** opens the visitor's email app with the me
 
 The green button opens a small chat panel. Visitors type a message (or tap a suggestion) and WhatsApp opens on their phone or computer with the message ready to send to `whatsapp` in `js/config.js`.
 
-## Placeholders to replace
+## Content status
 
-- [ ] Phone, WhatsApp number, email, address, hours, city, Google Maps link, Instagram (`js/config.js`)
-- [ ] Web3Forms access key (`js/config.js`)
-- [ ] Two featured projects: real names, type, location, area, year, scope, summary, palette, room photos, walkthrough videos
-- [ ] Service list and wording (e.g. "3D views", study tables, turnkey). Confirm the studio offers each one
-- [ ] All placeholder photos. They're free Unsplash images loaded from Unsplash, used only until the studio's own photos arrive
-- [ ] Founder full name, portrait and bio
-- [ ] Studio numbers (years, homes delivered and so on). The current figures are made up for the layout. Replace or delete them before launch
-- [ ] Client quotes. Use real ones with the client's permission, or delete them to hide the section
-- [ ] FAQ answers marked TODO in `contact.html` (first consultation, typical timelines, cities)
-- [ ] Floor-plan dimensions (11.2 m × 7.6 m) are illustrative; fine to keep or change in `planSVG` in `js/main.js`
+Real content from the studio is in: Khajur Residence (photos + walkthrough film), Husaini Residence (photos + walkthrough film), the Engineer Residence bedroom reel, contact details, Instagram and the founder bio.
+
+Still open:
+- [ ] **Client reviews** are drafts in `testimonials` in `js/config.js` and are **not shown** until each family approves their quote (set `approved: true`). Client names stay hidden while `showClientNames` is `false`.
+- [ ] **Email** for enquiries. With no email, the form sends the enquiry to WhatsApp. Add `email` (and optionally a Web3Forms key) to receive enquiries by email.
+- [ ] Optional: project size and year (`area`, `year`), studio hours, a Google Maps link, real studio numbers (`stats`), a founder portrait.
+
+### Photos and films
+
+- Project photos live in `assets/img/<project>/` (web-sized, about 200–300 KB each). Add a photo by dropping it in and adding its path to the right room in `js/config.js`.
+- Films live in `assets/video/` (each under 20 MB to suit Cloudflare Pages). The walkthroughs were edited in Remotion in `~/Documents/udstudio-video` (`npm run studio` to preview, `npx remotion render Khajur out/khajur-walkthrough.mp4`).
+- The hero uses `assets/video/hero-bedroom.mp4` for the day view and its first frame for the glowing night view. `hero.lights` marks the pendant lamp.
 
 ## Live preview
 

@@ -1,158 +1,164 @@
 /*
   UD Studio — site settings.
   Every page reads this file. Change a value here and it updates everywhere.
-  Anything marked TODO is a placeholder waiting for the studio's real details.
 */
 
-// Placeholder photos are free Unsplash images. Swap each for the studio's own
-// photo path, e.g. "assets/img/ivory/living-1.jpg", once the photos arrive.
-const U = (id, w = 1600) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+// Project photo paths
+const K = name => `assets/img/khajur/${name}.jpg`;
+const H = name => `assets/img/husaini/${name}.jpg`;
 
 window.SITE = {
   name: "UD Studio",
   fullName: "Umme's Design Studio",
 
   // ── Contact ─────────────────────────────────────────────
-  phoneDisplay: "+91 00000 00000",      // TODO
-  phoneTel: "+910000000000",            // TODO
-  whatsapp: "910000000000",             // TODO: country code + number, digits only
-  email: "hello@udstudio.in",           // TODO
-  hours: "Mon – Sat · 10:00 am – 7:00 pm", // TODO
-  city: "Your City",                    // TODO, e.g. "Nagpur"
-  address: "Studio address, Area, City, State 000000", // TODO
-  mapsLink: "",                         // TODO: Google Maps share link
-  instagram: "",                        // TODO: https://instagram.com/…
-  pinterest: "",                        // optional
-  linkedin: "",                         // optional
+  phoneDisplay: "+91 93593 12288",
+  phoneTel: "+919359312288",
+  whatsapp: "919359312288",             // country code + number, digits only
+  email: "",                            // add an email to show it and to receive form enquiries by email
+  hours: "",                            // e.g. "Mon – Sat · 10:00 am – 7:00 pm" (hidden while empty)
+  city: "Nagpur",
+  address: "Shantinagar, Nagpur, Maharashtra",
+  mapsLink: "",                         // Google Maps share link (optional)
+  instagram: "https://www.instagram.com/ummedesign_studio/",
+  instagramHandle: "@ummedesign_studio",
+  pinterest: "",
+  linkedin: "",
 
   // ── Enquiry form ────────────────────────────────────────
-  // Free: get an access key at https://web3forms.com with the inbox that should
-  // receive enquiries, then paste it here. Without a key the form opens the
-  // visitor's email app with the message filled in, so nothing is lost.
-  web3formsKey: "",                     // TODO
+  // With no email set, the form opens WhatsApp with the enquiry filled in.
+  // To receive enquiries by email instead: add an email above, get a free access
+  // key at https://web3forms.com for that inbox, and paste it here.
+  web3formsKey: "",
 
-  // ── Studio numbers (shown on Home and Studio) ───────────
-  // TODO: replace with real figures, or delete a line to hide it.
-  stats: [
-    { value: 8,   suffix: "+", label: "Years designing homes" },
-    { value: 120, suffix: "+", label: "Homes delivered" },
-    { value: 25,  suffix: "+", label: "Offices & commercial spaces" },
-    { value: 6,   suffix: "",  label: "Cities" }
-  ],
+  // ── Studio numbers ──────────────────────────────────────
+  // Add only real figures, e.g. { value: 50, suffix: "+", label: "Homes designed" }.
+  // The numbers row stays hidden while this list is empty.
+  stats: [],
 
   // ── Founder (Studio page) ───────────────────────────────
   founder: {
-    name: "Umme",                       // TODO: full name
-    role: "Founder & Principal Designer",
-    photo: U("photo-1788927775194-70e9b280dd79", 1200), // TODO: founder portrait
+    name: "Umme Aayeman",
+    role: "Founder & Interior Designer",
+    photo: "",                          // optional portrait; the UD Studio mark is shown while empty
     bio: [
-      "TODO: two or three lines about Umme — training, the kind of homes she loves designing, and what clients can expect when they work with her.",
-      "TODO: a second paragraph on how the studio works — a small team that stays with each home from first sketch to handover."
+      "Umme Aayeman is the founder of UD Studio, an interior design studio based in Shantinagar, Nagpur.",
+      "The studio designs complete homes, from living rooms and bedrooms to kitchens and wardrobes, as well as offices, cafés and restaurants. Every project starts with how the people using the space live and work, and every detail is planned around them."
     ]
   },
 
   // ── Client words ────────────────────────────────────────
-  // TODO: replace with real client quotes (with their permission).
+  // DRAFTS: please show each family their quote and get a yes (or their own
+  // words) before setting approved: true. Unapproved quotes are never shown, and
+  // the section stays hidden until at least one is approved.
+  // showClientNames: false shows "Homeowners" instead of the family's name.
+  showClientNames: false,
   testimonials: [
-    { quote: "Client quote goes here. A line or two on how it felt to work with the studio and how the home feels now.", name: "Client name", place: "3BHK apartment, City" },
-    { quote: "Second client quote. Ideally about something specific — the kitchen that finally works, the light in the living room.", name: "Client name", place: "Villa, City" },
-    { quote: "Third client quote, perhaps from an office or commercial client, to show the range of work.", name: "Client name", place: "Office, City" }
+    { approved: false, project: "khajur-residence", name: "Mr & Mrs Fazal",
+      quote: "Umme understood exactly how we wanted our home to feel. Every room is warm, practical and beautifully finished, and we still notice new details every day." },
+    { approved: false, project: "husaini-residence", name: "Mr & Mrs Kaludi",
+      quote: "From the first meeting to the final finishing, the process was smooth and stress-free. Our home looks better than we imagined." },
+    { approved: false, project: "engineer-residence", name: "Mr & Mrs Engineer",
+      quote: "The room turned out elegant and comfortable at the same time. Thank you, UD Studio, for the care you put into every detail." }
   ],
 
-  // ── Featured projects ───────────────────────────────────
-  // The first two are featured on the Home page. Add more and they appear on the
-  // Work page. Rooms show as tabs; add as many images per room as you like.
-  // video.src: an .mp4 path/URL, a YouTube link, or an Instagram reel link.
+  // ── Projects ────────────────────────────────────────────
+  // The first two are featured on the Home page; all appear on the Work page.
+  // Rooms show as tabs and feed the "Rooms we've designed" gallery (category =
+  // the gallery filter). Client names stay private unless showClientNames is true.
   projects: [
     {
-      slug: "ivory-residence",
-      name: "The Ivory Residence",       // TODO: real project name
+      slug: "khajur-residence",
+      name: "Khajur Residence",
+      client: "Mr & Mrs Fazal",
       kind: "Home",
-      type: "4BHK apartment",            // TODO
-      location: "City",                  // TODO
-      area: "2,400 sq ft",               // TODO
-      year: "2025",                      // TODO
-      scope: "Full home interiors · Turnkey",
-      summary: "TODO: two lines on the brief — who lives here, what they wanted the home to feel like, and the one idea that shaped the design.",
-      palette: ["#F3ECE5", "#D9C6B5", "#A9786B", "#3D1108"],
-      cover: U("photo-1682184805271-11671b7ecf4c", 2000),
+      type: "Complete home",
+      location: "Nagpur",
+      area: "",                          // e.g. "2,400 sq ft" (hidden while empty)
+      year: "",                          // e.g. "2026" (hidden while empty)
+      scope: "Complete home interiors",
+      summary: "A warm, layered family home. A swing anchors the living room, fluted wood frames the entrance, the master bedroom sits under a glowing arched headboard in plum and ivory, and the second bedroom is built around a deep-blue window seat.",
+      palette: ["#EEE7DE", "#A0522D", "#4B2A3A", "#1F3A56"],
+      cover: K("living-1"),
       rooms: [
-        { name: "Living room", images: [U("photo-1682184805271-11671b7ecf4c"), U("photo-1618221195710-dd6b41faaea6")] },
-        { name: "Bedroom",     images: [U("photo-1757344454333-cc666252e596"), U("photo-1616594039964-ae9021a400a0")] },
-        { name: "Kitchen",     images: [U("photo-1683629357963-adf2b1fa9ad9"), U("photo-1638886043487-72d203fa66b6")] },
-        { name: "Dining",      images: [U("photo-1635108197695-05184e426907")] },
-        { name: "Bath",        images: [U("photo-1753605788101-04d1e653e74a")] }
+        { name: "Living room",    category: "Living",            images: [K("living-1"), K("living-2"), K("living-3"), K("living-4")] },
+        { name: "Entrance",       category: "Entrance & details", images: [K("entrance-1")] },
+        { name: "Kitchen",        category: "Kitchen",           images: [K("kitchen-1"), K("kitchen-2"), K("kitchen-3")] },
+        { name: "Master bedroom", category: "Bedroom",           images: [K("master-1"), K("master-2"), K("master-3"), K("master-4"), K("master-5"), K("master-6"), K("master-7"), K("master-8"), K("master-9")] },
+        { name: "Second bedroom", category: "Bedroom",           images: [K("bedroom2-1"), K("bedroom2-2"), K("bedroom2-5"), K("bedroom2-3"), K("bedroom2-4"), K("bedroom2-6"), K("bedroom2-7"), K("bedroom2-8"), K("bedroom2-9"), K("bedroom2-10"), K("bedroom2-11"), K("bedroom2-12"), K("bedroom2-13")] },
+        { name: "Study & display", category: "Kids & study",     images: [K("study-1"), K("study-2")] }
       ],
-      video: { src: "", poster: U("photo-1618221195710-dd6b41faaea6", 1800) } // TODO: walkthrough video
+      video: { src: "assets/video/khajur-walkthrough.mp4", poster: "assets/video/khajur-walkthrough.jpg", vertical: true }
     },
     {
-      slug: "teak-house",
-      name: "The Teak House",            // TODO: real project name
+      slug: "husaini-residence",
+      name: "Husaini Residence",
+      client: "Mr & Mrs Kaludi",
       kind: "Home",
-      type: "3BHK villa",                // TODO
-      location: "City",                  // TODO
-      area: "3,100 sq ft",               // TODO
-      year: "2024",                      // TODO
-      scope: "Full home interiors · Modular kitchen",
-      summary: "TODO: two lines on the brief — who lives here, what they wanted the home to feel like, and the one idea that shaped the design.",
-      palette: ["#EFE7DD", "#C9B39C", "#7D7F63", "#2A1410"],
-      cover: U("photo-1745429523617-0d837856ca35", 2000),
+      type: "Complete home",
+      location: "Nagpur",
+      area: "",
+      year: "",
+      scope: "Complete home interiors",
+      summary: "Bright, clean and easy to live in. Arched wall panels and a rust-orange sofa in the living room, a mint-and-white kitchen that opens onto the dining table, and a playful kids' room with a little house-shaped shelf.",
+      palette: ["#F4F1EC", "#C8642E", "#A9C2B6", "#6B4A33"],
+      cover: H("living-1"),
       rooms: [
-        { name: "Living room", images: [U("photo-1745429523617-0d837856ca35"), U("photo-1787390629829-abb32b3025c5")] },
-        { name: "Kitchen",     images: [U("photo-1745429523635-ad375f836bf2"), U("photo-1745429523615-2a82c60bfc02")] },
-        { name: "Bedroom",     images: [U("photo-1617098900591-3f90928e8c54")] },
-        { name: "Dining",      images: [U("photo-1600488999806-8efb986d87b1")] },
-        { name: "Details",     images: [U("photo-1642689703515-1dcf91a784a5"), U("photo-1667312939978-64cf31718a6e")] }
+        { name: "Living room", category: "Living",             images: [H("living-1"), H("living-2")] },
+        { name: "Main door",   category: "Entrance & details", images: [H("door-1")] },
+        { name: "Dining",      category: "Dining",             images: [H("dining-1")] },
+        { name: "Kitchen",     category: "Kitchen",            images: [H("kitchen-1")] },
+        { name: "Kids' room",  category: "Kids & study",       images: [H("kids-1"), H("kids-2")] },
+        { name: "Details",     category: "Entrance & details", images: [H("wash-1"), H("ceiling-1")] }
       ],
-      video: { src: "", poster: U("photo-1745429523615-2a82c60bfc02", 1800) } // TODO: walkthrough video
+      video: { src: "assets/video/husaini-walkthrough.mp4", poster: "assets/video/husaini-walkthrough.jpg", vertical: true }
+    },
+    {
+      slug: "engineer-residence",
+      name: "Engineer Residence",
+      client: "Mr & Mrs Engineer",
+      kind: "Bedroom",
+      type: "Bedroom",
+      location: "Nagpur",
+      area: "",
+      year: "",
+      scope: "Bedroom interiors",
+      summary: "A calm bedroom in grey and teal: a quilted headboard, a full-height wardrobe in white and slate, a study corner lit by brass wall lights, and a cushioned window seat.",
+      palette: ["#EDEBE7", "#5E6A70", "#2F5D63", "#B08D57"],
+      cover: "assets/video/reel-bedroom.jpg",
+      rooms: [],
+      video: { src: "assets/video/reel-bedroom.mp4", poster: "assets/video/reel-bedroom.jpg", vertical: true, sound: true }
     }
   ],
 
-  // ── Hero: the room starts at dusk and its lights switch on ──
-  // Use a photo with lamps you can see. Each light is a position on the photo,
-  // in % from the left and top, with a glow size in % of the photo's width.
-  // The first light is where the light spreads from when the switch is tapped.
+  // ── Latest reel (Home page, phone frame) ────────────────
+  reel: { project: "engineer-residence", title: "A calm bedroom in grey and teal" },
+
+  // ── Hero: night view (gold lines) ⟷ day view ─────────
+  // image: a still of the room (used to draw the night view). video (optional)
+  // plays in the day view. lights: lamp positions in % from the left and top;
+  // the first is where the light spreads from when the switch is tapped.
   hero: {
-    image: U("photo-1682184805271-11671b7ecf4c", 1600),
-    lights: [
-      { x: 34, y: 33, size: 34 },
-      { x: 53, y: 35, size: 34 },
-      { x: 50, y: 25, size: 60, soft: true }
-    ]
+    image: "assets/video/hero-bedroom.jpg",
+    video: "assets/video/hero-bedroom.mp4",
+    lights: [{ x: 55, y: 24, size: 30 }]
   },
 
-  // ── Extra photos for the "Rooms we've designed" gallery ──
-  // Every room photo from the projects above appears there automatically.
-  // Add more sample photos here: { src, cat, label }. cat is the filter name.
-  gallery: [
-    { src: U("photo-1616594039964-ae9021a400a0", 1200), cat: "Bedroom",  label: "Master bedroom" },
-    { src: U("photo-1686023858216-4f54c853acf2", 1200), cat: "Kitchen",  label: "Island kitchen" },
-    { src: U("photo-1598928506311-c55ded91a20c", 1200), cat: "Living",   label: "Living room" },
-    { src: U("photo-1505693416388-ac5ce068fe85", 1200), cat: "Bedroom",  label: "Guest bedroom" },
-    { src: U("photo-1706820229870-f9a8c6dac193", 1200), cat: "Dining",   label: "Dining room" },
-    { src: U("photo-1742134131017-44d377a611b1", 1200), cat: "Bathroom", label: "Bathroom" },
-    { src: U("photo-1706074797611-a02f9ed06439", 1200), cat: "Office",   label: "Office lounge" },
-    { src: U("photo-1706074793638-da28b90ea8ae", 1200), cat: "Office",   label: "Conference room" },
-    { src: U("photo-1628744876497-eb30460be9f6", 1200), cat: "Living",   label: "Living room" },
-    { src: U("photo-1731336478850-6bce7235e320", 1200), cat: "Bedroom",  label: "Wardrobe & bed wall" }
-  ],
+  // Extra photos for the gallery beyond the project rooms: { src, cat, label }
+  gallery: [],
 
-  // Images used around the site (swap for the studio's own when ready)
+  // Photos used around the site
   images: {
-    sketch:    U("photo-1618221195710-dd6b41faaea6", 1800),
-    statement: [U("photo-1667312939978-64cf31718a6e", 400), U("photo-1612196808827-9ff25cb6137a", 400), U("photo-1642689703515-1dcf91a784a5", 400)],
-    arch:      U("photo-1788927775194-70e9b280dd79", 1400),
-    studio:    U("photo-1603901622056-0a5bee231395", 1600),
-    contact:   U("photo-1719760518176-e124a5bcd025", 1600),
+    sketch:    K("bedroom2-1"),
+    statement: [K("bedroom2-12"), K("study-2"), H("kids-2")],
+    arch:      K("entrance-1"),
+    contact:   H("living-1"),
     services: {
-      homes:      U("photo-1593987314040-8e0ac84ae724", 900),
-      kitchens:   U("photo-1683629357963-adf2b1fa9ad9", 900),
-      wardrobes:  U("photo-1731336478850-6bce7235e320", 900),
-      renovation: U("photo-1600298997393-a06f24d3df68", 900),
-      office:     U("photo-1706074797611-a02f9ed06439", 900),
-      styling:    U("photo-1642689703515-1dcf91a784a5", 900),
-      turnkey:    U("photo-1498075702571-ecb018f3752d", 900)
+      homes:     K("living-1"),
+      kitchens:  K("kitchen-1"),
+      wardrobes: K("bedroom2-9"),
+      bedrooms:  K("master-1"),
+      living:    H("living-1")
     }
   },
 

@@ -27,6 +27,7 @@
     get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
     set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) { /* private mode */ } }
   };
+  const emailMode = !!(S.email || S.web3formsKey);
   const waLink = (text = "") => `https://wa.me/${S.whatsapp}${text ? "?text=" + encodeURIComponent(text) : ""}`;
 
   /* ───────────── Logo ───────────── */
@@ -67,7 +68,7 @@
     const menu = document.createElement("div");
     menu.className = "menu"; menu.id = "menu";
     menu.innerHTML = `<ul>${NAV.map((n, i) => `<li><a href="${n.href}"><small>0${i + 1}</small>${n.label}</a></li>`).join("")}</ul>
-      <div class="menu__foot"><a href="tel:${S.phoneTel}">${esc(S.phoneDisplay)}</a><a href="mailto:${S.email}">${esc(S.email)}</a><span>${esc(S.hours)}</span></div>`;
+      <div class="menu__foot"><a href="tel:${S.phoneTel}">${esc(S.phoneDisplay)}</a>${S.email ? `<a href="mailto:${S.email}">${esc(S.email)}</a>` : ""}${S.instagram ? `<a href="${esc(S.instagram)}" target="_blank" rel="noopener">${esc(S.instagramHandle || "Instagram")}</a>` : ""}${S.hours ? `<span>${esc(S.hours)}</span>` : ""}</div>`;
     document.body.appendChild(menu);
     const burger = $(".burger", h);
     const setMenu = open => {
@@ -101,11 +102,11 @@
         <a class="btn btn--dark" href="contact.html" data-magnetic><span>Start your project</span><i class="btn__arrow"></i></a>
       </div>
       <div class="footer__grid">
-        <div class="footer__brand"><span class="brand__mark">${logoSVG()}</span><p>${esc(S.fullName)}<br>Interior design for homes, offices and more.</p></div>
-        <div><h4>Visit</h4><p>${esc(S.address)}</p><p>${esc(S.hours)}</p>${S.mapsLink ? `<p><a href="${esc(S.mapsLink)}" target="_blank" rel="noopener">Get directions →</a></p>` : ""}</div>
+        <div class="footer__brand"><span class="brand__mark">${logoSVG()}</span><p>${esc(S.fullName)}<br>Interior design for homes, offices, cafés and restaurants.</p></div>
+        <div><h4>Visit</h4><p>${esc(S.address)}</p>${S.hours ? `<p>${esc(S.hours)}</p>` : ""}${S.mapsLink ? `<p><a href="${esc(S.mapsLink)}" target="_blank" rel="noopener">Get directions →</a></p>` : ""}</div>
         <div><h4>Talk to us</h4><ul>
           <li><a href="tel:${S.phoneTel}">${esc(S.phoneDisplay)}</a></li>
-          <li><a href="mailto:${S.email}">${esc(S.email)}</a></li>
+          ${S.email ? `<li><a href="mailto:${S.email}">${esc(S.email)}</a></li>` : ""}
           <li><a href="${waLink("Hello UD Studio! I'd like to talk about my space.")}" target="_blank" rel="noopener">WhatsApp us →</a></li></ul></div>
         <div><h4>Explore</h4><ul>
           ${NAV.map(n => `<li><a href="${n.href}">${n.label}</a></li>`).join("")}
@@ -125,7 +126,14 @@
     $$("[data-founder]").forEach(el => (el.textContent = S.founder.name));
     $$("[data-founder-role]").forEach(el => (el.textContent = S.founder.role));
     $$("[data-founder-bio]").forEach(el => (el.innerHTML = S.founder.bio.map(p => `<p>${esc(p)}</p>`).join("")));
-    $$("[data-founder-photo]").forEach(el => (el.src = S.founder.photo));
+    $$("[data-founder-photo]").forEach(el => {
+      if (S.founder.photo) { el.src = S.founder.photo; return; }
+      const fig = el.closest("figure");
+      fig.classList.add("founder__mark");
+      fig.innerHTML = `<div class="founder__mark-in">${logoSVG()}<span>${esc(S.fullName)}</span></div>`;
+    });
+    $$("[data-instagram]").forEach(el => (S.instagram ? (el.href = S.instagram) : el.remove()));
+    $$("[data-instagram-handle]").forEach(el => (el.textContent = S.instagramHandle || ""));
     $$("[data-pill]").forEach(el => (el.style.backgroundImage = `url("${S.images.statement[+el.dataset.pill]}")`));
     const cm = $(".curtain__mark");
     if (cm) cm.innerHTML = logoSVG();
@@ -248,6 +256,18 @@
     const src = H.image || S.images.sketch;
     const scene = $(".room__scene", room), img = $(".room__img", room), linesImg = $(".room__lines", room);
     img.src = src;
+    // optional video for the day view; the still above still draws the night view
+    let vid = null;
+    if (H.video) {
+      vid = document.createElement("video");
+      vid.className = "room__img";
+      vid.muted = true; vid.loop = true; vid.playsInline = true;
+      vid.setAttribute("playsinline", ""); vid.setAttribute("muted", "");
+      vid.preload = "auto"; vid.poster = src; vid.src = H.video;
+      vid.setAttribute("aria-label", img.alt);
+      img.replaceWith(vid);
+      room.classList.add("has-video");
+    }
     const lights = H.lights || [];
     const main = lights.find(l => !l.soft) || { x: 50, y: 35 };
     room.style.setProperty("--lx", main.x + "%");
@@ -278,6 +298,10 @@
     let timer;
     const set = (on, flicker = true) => {
       hero.classList.toggle("is-on", on);
+      if (vid) {
+        if (on && !reduce) { try { vid.currentTime = 0; } catch (e) { /* not loaded yet */ } vid.play().catch(() => {}); }
+        else if (!on) setTimeout(() => !hero.classList.contains("is-on") && vid.pause(), 1100);
+      }
       sw.setAttribute("aria-pressed", on);
       sw.setAttribute("aria-label", on ? "Switch to the night view" : "Switch to the day view");
       hint.textContent = on ? "Tap for night view" : "Tap for day view";
@@ -310,6 +334,25 @@
     };
     G.set(".hero__eyebrow", { opacity: 0, y: 20 });
     G.to(scene, { yPercent: 6, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
+  }
+
+  /* ───────────── Latest reel in a phone frame ───────────── */
+  function initReel() {
+    const sec = $("#reel");
+    if (!sec) return;
+    const P = S.reel && S.projects.find(p => p.slug === S.reel.project);
+    if (!P || !P.video || !P.video.src) { sec.remove(); return; }
+    const v = $(".phone__video", sec);
+    v.src = P.video.src; v.poster = P.video.poster || "";
+    $("[data-reel-title]", sec).textContent = P.summary;
+    $("[data-reel-sound]", sec).setAttribute("data-video", P.slug);
+    if ("IntersectionObserver" in window && !reduce) {
+      new IntersectionObserver(es => es.forEach(e => (e.isIntersecting ? v.play().catch(() => {}) : v.pause())), { threshold: .35 }).observe(v);
+    }
+    if (anim) {
+      G.from($(".phone", sec), { y: 140, rotate: 7, opacity: 0, duration: 1.5, ease: "expo.out", scrollTrigger: { trigger: sec, start: "top 72%" } });
+      G.from($(".reel__glow", sec), { scale: .4, opacity: 0, duration: 2, ease: "power2.out", scrollTrigger: { trigger: sec, start: "top 72%" } });
+    }
   }
 
   /* ───────────── Sketch ⟷ finished room slider ───────────── */
@@ -423,7 +466,7 @@
         <div class="feature__info">
           <span class="feature__num">${String(i + 1).padStart(2, "0")} / ${esc(p.kind)}</span>
           <h3 class="feature__title split">${esc(p.name)}</h3>
-          <p class="feature__meta"><span>${esc(p.type)}</span><span>${esc(p.location)}</span><span>${esc(p.area)}</span></p>
+          <p class="feature__meta">${[p.type, p.location, p.area].filter(Boolean).map(x => `<span>${esc(x)}</span>`).join("")}</p>
           <p class="feature__summary reveal">${esc(p.summary)}</p>
           <div class="tabs reveal" role="tablist" aria-label="Rooms">${p.rooms.map((r, ri) => `<button class="tab" role="tab" aria-selected="${ri === 0}" data-room="${ri}">${esc(r.name)}</button>`).join("")}</div>
           <p class="feature__palette reveal">Palette ${p.palette.map(c => `<i style="--c:${c}"></i>`).join("")}</p>
@@ -471,16 +514,16 @@
   function initServiceCards() {
     const cards = $$(".svc-card");
     if (!cards.length) return;
-    cards.forEach((c, i) => { $("img", c).src = S.images.services[c.dataset.img]; c.style.setProperty("--i", i % 4); });
+    cards.forEach((c, i) => { const im = $("img", c); if (im) im.src = S.images.services[c.dataset.img]; c.style.setProperty("--i", i % 4); });
     if (!("IntersectionObserver" in window) || reduce) { cards.forEach(c => c.classList.add("is-lit")); return; }
     const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle("is-lit", e.isIntersecting)), { threshold: .55 });
     cards.forEach(c => io.observe(c));
   }
 
   /* ───────────── Gallery: sample work by room ───────────── */
-  const CATS = ["Living", "Bedroom", "Kitchen", "Dining", "Bathroom", "Office", "Decor"];
-  const CAT_LABEL = { Living: "Living rooms", Bedroom: "Bedrooms", Kitchen: "Kitchens", Dining: "Dining", Bathroom: "Bathrooms", Office: "Offices", Decor: "Details" };
-  const catOf = n => /living/i.test(n) ? "Living" : /bed|wardrobe/i.test(n) ? "Bedroom" : /kitchen/i.test(n) ? "Kitchen" : /dining/i.test(n) ? "Dining" : /bath/i.test(n) ? "Bathroom" : /office|work|conference/i.test(n) ? "Office" : "Decor";
+  const CATS = ["Living", "Bedroom", "Kitchen", "Dining", "Kids & study", "Entrance & details"];
+  const CAT_LABEL = { Living: "Living rooms", Bedroom: "Bedrooms", Kitchen: "Kitchens", Dining: "Dining", "Kids & study": "Kids & study", "Entrance & details": "Entrances & details" };
+  const catOf = n => /living/i.test(n) ? "Living" : /bed|wardrobe/i.test(n) ? "Bedroom" : /kitchen/i.test(n) ? "Kitchen" : /dining/i.test(n) ? "Dining" : /kid|study/i.test(n) ? "Kids & study" : "Entrance & details";
   function galleryItems() {
     const out = [];
     S.projects.forEach(p => p.rooms.forEach(r => r.images.forEach(src => out.push({ src, cat: r.category || catOf(r.name), label: r.name, project: p.name }))));
@@ -698,6 +741,7 @@
       if (anim) G.to($("span", sig), { clipPath: "inset(-30% 0% -30% 0%)", duration: 1.8, ease: "power1.inOut", scrollTrigger: { trigger: sig, start: "top 85%" } });
     }
     $$("#stats, [data-stats]").forEach(ul => {
+      if (!S.stats.length) { ul.remove(); return; }
       ul.innerHTML = S.stats.map(s => `<li><b><span data-n="${s.value}">${anim ? 0 : s.value}</span><sup>${esc(s.suffix)}</sup></b><span>${esc(s.label)}</span></li>`).join("");
       if (!anim) return;
       $$("[data-n]", ul).forEach(n => {
@@ -710,9 +754,13 @@
   /* ───────────── Testimonials ───────────── */
   function initWords() {
     const stage = $("#words-stage"), dots = $("#words-dots");
-    if (!stage || !S.testimonials.length) { stage && stage.closest("section").remove(); return; }
-    stage.innerHTML = S.testimonials.map((t, i) => `<figure class="quote${i ? "" : " is-on"}"><span class="quote__mark" aria-hidden="true">“</span><blockquote>${esc(t.quote)}</blockquote><figcaption><cite>${esc(t.name)}<span>${esc(t.place)}</span></cite></figcaption></figure>`).join("");
-    dots.innerHTML = S.testimonials.map((_, i) => `<button aria-label="Show quote ${i + 1}"${i ? "" : ' class="is-on"'}><i></i></button>`).join("");
+    const T = (S.testimonials || []).filter(t => t.approved).map(t => {
+      const p = S.projects.find(x => x.slug === t.project);
+      return { quote: t.quote, name: S.showClientNames ? t.name : "Homeowners", place: p ? `${p.name}, ${p.location}` : "" };
+    });
+    if (!stage || !T.length) { stage && stage.closest("section").remove(); return; }
+    stage.innerHTML = T.map((t, i) => `<figure class="quote${i ? "" : " is-on"}"><span class="quote__mark" aria-hidden="true">“</span><blockquote>${esc(t.quote)}</blockquote><figcaption><cite>${esc(t.name)}<span>${esc(t.place)}</span></cite></figcaption></figure>`).join("");
+    dots.innerHTML = T.map((_, i) => `<button aria-label="Show quote ${i + 1}"${i ? "" : ' class="is-on"'}><i></i></button>`).join("");
     const qs = $$(".quote", stage), ds = $$("button", dots);
     let cur = 0, timer;
     const show = i => {
@@ -731,9 +779,10 @@
       ul.innerHTML = `
         <li><span>Call</span><a href="tel:${S.phoneTel}">${esc(S.phoneDisplay)}</a></li>
         <li><span>WhatsApp</span><a href="${waLink("Hello UD Studio! I'd like to talk about my space.")}" target="_blank" rel="noopener">Chat with us</a></li>
-        <li><span>Email</span><a href="mailto:${S.email}">${esc(S.email)}</a></li>
+        ${S.email ? `<li><span>Email</span><a href="mailto:${S.email}">${esc(S.email)}</a></li>` : ""}
+        ${S.instagram ? `<li><span>Instagram</span><a href="${esc(S.instagram)}" target="_blank" rel="noopener">${esc(S.instagramHandle || "Follow us")}</a></li>` : ""}
         <li><span>Studio</span><span>${esc(S.address)}${S.mapsLink ? ` · <a href="${esc(S.mapsLink)}" target="_blank" rel="noopener">Directions</a>` : ""}</span></li>
-        <li><span>Hours</span><span>${esc(S.hours)}</span></li>`;
+        ${S.hours ? `<li><span>Hours</span><span>${esc(S.hours)}</span></li>` : ""}`;
     });
     $$("[data-enquiry-form]").forEach((box, n) => {
       const chips = (name, opts, type = "radio") => `<div class="chipset">${opts.map(o => `<label class="chip"><input type="${type}" name="${name}" value="${esc(o)}"><span>${esc(o)}</span></label>`).join("")}</div>`;
@@ -743,21 +792,21 @@
           <div class="field"><label for="f${n}-phone">Phone / WhatsApp</label><input id="f${n}-phone" name="phone" type="tel" required autocomplete="tel" placeholder="+91"></div>
         </div>
         <div class="field"><label for="f${n}-email">Email</label><input id="f${n}-email" name="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
-        <fieldset class="field chips"><legend>What are we designing?</legend>${chips("project", ["Full home", "Kitchen", "Wardrobes", "Renovation", "Office", "Commercial", "Something else"])}</fieldset>
-        <fieldset class="field chips"><legend>Property</legend>${chips("property", ["1 BHK", "2 BHK", "3 BHK", "4 BHK +", "Villa / bungalow", "Office / shop"])}</fieldset>
+        <fieldset class="field chips"><legend>What are we designing?</legend>${chips("project", ["Complete home", "Kitchen", "Wardrobes", "Bedroom", "Office", "Café / restaurant", "Something else"])}</fieldset>
+        <fieldset class="field chips"><legend>Property</legend>${chips("property", ["1 BHK", "2 BHK", "3 BHK", "4 BHK +", "Villa / bungalow", "Commercial space"])}</fieldset>
         <div class="form__row">
           <div class="field"><label for="f${n}-loc">Site location</label><input id="f${n}-loc" name="location" placeholder="Area, city"></div>
           <div class="field"><label for="f${n}-when">When would you like to start?</label><select id="f${n}-when" name="timeline"><option>Right away</option><option>In 1–3 months</option><option>In 3–6 months</option><option>Just exploring</option></select></div>
         </div>
         <div class="field"><label for="f${n}-msg">Tell us about your space</label><textarea id="f${n}-msg" name="message" placeholder="Size, possession date, styles you like, rooms you want done…"></textarea></div>
         <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <div class="form__foot"><p class="form__fine">We only use your details to reply to your enquiry.</p><button class="btn btn--dark" type="submit"><span>Send enquiry</span><i class="btn__arrow"></i></button></div>
+        <div class="form__foot"><p class="form__fine">${emailMode ? "We only use your details to reply to your enquiry." : "Your enquiry opens in WhatsApp, ready to send to us."}</p><button class="btn btn--dark" type="submit"><span>${emailMode ? "Send enquiry" : "Send on WhatsApp"}</span><i class="btn__arrow"></i></button></div>
         <p class="form__status" role="status" aria-live="polite"></p>
         <div class="form__done" aria-live="polite"><div>
           <svg viewBox="0 0 100 80" aria-hidden="true"><path class="done-draw" d="M10 76V34L50 6l40 28v42M10 76h80M40 76V50h20v26M24 42h10v10H24zM66 42h10v10H66z"/></svg>
           <span class="script">Thank you</span>
-          <h3>We've got your message</h3>
-          <p>We'll be in touch soon. If it's urgent, <a href="${waLink("Hi UD Studio, I just sent an enquiry from the website.")}" target="_blank" rel="noopener">message us on WhatsApp</a>.</p>
+          <h3>${emailMode ? "We've got your message" : "Almost there"}</h3>
+          <p>${emailMode ? `We'll be in touch soon. If it's urgent, <a href="${waLink("Hi UD Studio, I just sent an enquiry from the website.")}" target="_blank" rel="noopener">message us on WhatsApp</a>.` : "Your enquiry is ready in WhatsApp. Just tap send, and we'll get back to you soon."}</p>
         </div></div>
       </form>`;
       const form = $("form", box), status = $(".form__status", form), btn = $('button[type="submit"]', form);
@@ -770,12 +819,18 @@
         if (!d.phone || d.phone.replace(/\D/g, "").length < 8) bad.push(form.elements.phone);
         if (d.email && !/^\S+@\S+\.\S+$/.test(d.email)) bad.push(form.elements.email);
         if (bad.length) { status.textContent = "Please add your name and a phone number we can reach you on."; bad[0].focus(); return; }
-        const lines = [`Name: ${d.name}`, `Phone: ${d.phone}`, `Email: ${d.email || "-"}`, `Project: ${d.project || "-"}`, `Property: ${d.property || "-"}`, `Location: ${d.location || "-"}`, `Start: ${d.timeline || "-"}`, "", d.message || ""];
+        const lines = ["Hello UD Studio! I'd like to talk about a project.", "", `Name: ${d.name}`, `Phone: ${d.phone}`, d.email ? `Email: ${d.email}` : "", `Project: ${d.project || "-"}`, `Property: ${d.property || "-"}`, `Location: ${d.location || "-"}`, `Start: ${d.timeline || "-"}`, d.message ? `\n${d.message}` : ""].filter(Boolean);
         const done = () => {
           form.classList.add("is-sent");
           const p = $(".done-draw", form);
           if (anim && p.getTotalLength) { const l = p.getTotalLength(); G.fromTo(p, { strokeDasharray: l, strokeDashoffset: l }, { strokeDashoffset: 0, duration: 1.8, ease: "power2.inOut" }); }
         };
+        if (!emailMode) {
+          window.open(waLink(lines.join("\n")), "_blank", "noopener");
+          status.textContent = "";
+          setTimeout(done, 500);
+          return;
+        }
         if (!S.web3formsKey) {
           location.href = `mailto:${S.email}?subject=${encodeURIComponent("Website enquiry from " + d.name)}&body=${encodeURIComponent(lines.join("\n"))}`;
           status.textContent = "Your email app should open with the enquiry ready to send.";
@@ -851,9 +906,10 @@
       const yt = src.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/);
       if (yt) inner = `<iframe src="https://www.youtube-nocookie.com/embed/${yt[1]}?autoplay=1&rel=0" title="Walkthrough of ${esc(p.name)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
       else if (/instagram\.com\/(reel|p)\//.test(src)) inner = `<iframe src="${esc(src.replace(/\/?(\?.*)?$/, "/"))}embed" title="Walkthrough of ${esc(p.name)}" allowfullscreen></iframe>`;
-      else if (src) inner = `<video src="${esc(src)}" poster="${esc(v.poster || "")}" controls autoplay playsinline></video>`;
+      else if (src) inner = `<video src="${esc(src)}" poster="${esc(v.poster || "")}" controls autoplay playsinline${v.sound ? "" : " muted"}></video>`;
       else inner = `<div class="vmodal__soon" style="background-image:url('${esc(v.poster || p.cover)}')"><div><span class="script">Coming soon</span><p>A walkthrough of ${esc(p.name)}</p><small>The video is being edited. Until then, explore the photographs.</small></div></div>`;
       body.innerHTML = inner;
+      body.classList.toggle("is-vertical", !!v.vertical);
       m.hidden = false; requestAnimationFrame(() => m.classList.add("is-open"));
       lenis && lenis.stop();
       $(".vmodal__close", m).focus();
@@ -921,17 +977,20 @@
     root.innerHTML = `
       <section class="p-hero">
         <div class="p-hero__img"><img src="${p.cover}" alt="${esc(p.name)}"></div>
-        <div class="p-hero__copy"><p class="eyebrow">${esc(p.kind)} · ${esc(p.type)} · ${esc(p.location)}</p><h1 class="split">${esc(p.name)}</h1></div>
+        <div class="p-hero__copy"><p class="eyebrow">${[p.type, p.location].filter(Boolean).map(esc).join(" · ")}</p><h1 class="split">${esc(p.name)}</h1></div>
       </section>
       <section class="p-facts">
-        <dl class="reveal"><div><dt>Location</dt><dd>${esc(p.location)}</dd></div><div><dt>Type</dt><dd>${esc(p.type)}</dd></div><div><dt>Area</dt><dd>${esc(p.area)}</dd></div><div><dt>Completed</dt><dd>${esc(p.year)}</dd></div><div style="grid-column:1/-1"><dt>Scope</dt><dd>${esc(p.scope)}</dd></div></dl>
+        <dl class="reveal">${[["Location", p.location], ["Type", p.type], ["Area", p.area], ["Completed", p.year]].filter(x => x[1]).map(x => `<div><dt>${x[0]}</dt><dd>${esc(x[1])}</dd></div>`).join("")}${p.scope ? `<div style="grid-column:1/-1"><dt>Scope</dt><dd>${esc(p.scope)}</dd></div>` : ""}</dl>
         <div><p class="p-facts__summary reveal">${esc(p.summary)}</p><p class="feature__palette reveal">Palette ${p.palette.map(c => `<i style="--c:${c}"></i>`).join("")}</p></div>
       </section>
-      <section class="p-rooms">
+      ${p.rooms.length ? `<section class="p-rooms">
         <ul class="p-rooms__nav">${p.rooms.map((r, k) => `<li><a href="#room-${k}"${k ? "" : ' class="is-on"'}>${esc(r.name)}</a></li>`).join("")}</ul>
         <div>${p.rooms.map((r, k) => `<div class="p-room" id="room-${k}"><h2 class="split">${esc(r.name)}</h2><div class="p-room__grid">${r.images.map(src => `<figure class="p-img"><img src="${src}" alt="${esc(r.name)}, ${esc(p.name)}" loading="lazy"></figure>`).join("")}</div></div>`).join("")}</div>
-      </section>
-      <section class="p-video"><p class="eyebrow">Walkthrough</p><div class="p-video__frame" style="background-image:url('${esc(p.video.poster || p.cover)}')"><button class="feature__play" data-video="${p.slug}" aria-label="Watch the walkthrough of ${esc(p.name)}">${playButton()}</button></div></section>
+      </section>` : ""}
+      ${p.video && p.video.src ? `<section class="p-video${p.video.vertical ? " is-vertical" : ""}">
+        <div class="p-video__copy"><p class="eyebrow">${p.rooms.length ? "Walkthrough" : "Film"}</p><h2 class="split">Walk through <em>${esc(p.name)}</em></h2><p class="reveal">${p.rooms.length ? "A short film of the finished home, room by room." : "A short film of the finished room."}</p></div>
+        <div class="p-video__frame"><video src="${esc(p.video.src)}" poster="${esc(p.video.poster || p.cover)}" controls playsinline preload="metadata"${p.video.sound ? "" : " muted"}></video></div>
+      </section>` : ""}
       <a class="p-next" href="project.html?p=${next.slug}"><p class="eyebrow">Next project</p><h2>${esc(next.name)}</h2></a>`;
     const navLinks = $$(".p-rooms__nav a", root);
     if (anim) {
@@ -1007,6 +1066,7 @@
   initStatement();
   initFeatured();
   initGallery();
+  initReel();
   initServiceCards();
   initProcess();
   initStudio();
