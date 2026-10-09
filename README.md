@@ -91,7 +91,11 @@ Still open:
 - Films live in `assets/video/` (each under 20 MB to suit Cloudflare Pages). The walkthroughs were edited in Remotion in `~/Documents/udstudio-video` (`npm run studio` to preview, `npx remotion render Khajur out/khajur-walkthrough.mp4`).
 - The hero uses `assets/video/hero-bedroom.mp4` for the day view and its first frame for the glowing night view. `hero.lights` marks the pendant lamp.
 
-## Live preview
+## Live site
+
+**https://udstudio.pages.dev** (Cloudflare Pages, connected to the GitHub repo: every push to `main` deploys automatically). The GitHub Pages copy at mohammed-muzzammil.github.io/udstudio also stays live.
+
+## GitHub Pages copy
 
 The site is published with GitHub Pages from the public repo **mohammed-muzzammil/udstudio**:
 
