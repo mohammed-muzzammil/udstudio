@@ -106,7 +106,7 @@ window.SITE = {
         { name: "Main door",   category: "Entrance & details", images: [H("door-1")] },
         { name: "Dining",      category: "Dining",             images: [H("dining-1")] },
         { name: "Kitchen",     category: "Kitchen",            images: [H("kitchen-1")] },
-        { name: "Kids' room",  category: "Kids & study",       images: [H("kids-1"), H("kids-2")] },
+        { name: "Kid's room",  category: "Kids & study",       images: [H("kids-1"), H("kids-2")] },
         { name: "Details",     category: "Entrance & details", images: [H("wash-1"), H("ceiling-1")] }
       ],
       video: { src: "assets/video/husaini-walkthrough.mp4", poster: "assets/video/husaini-walkthrough.jpg", vertical: true }
